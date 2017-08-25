@@ -1,0 +1,226 @@
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.util.*;
+import java.util.Scanner;
+
+public class HangMan extends JFrame
+{
+   //Declaring arrays
+   String [] array; 
+   String [] array2;
+   
+   //Declaring variables
+   String word;
+   int sizeOfWord;
+   String letterGuessed;
+   String theArray;
+   
+    
+   //Default Constructor
+   HangMan()
+   {
+      this.word= "something";
+      this.sizeOfWord= 0;
+      this.letterGuessed= " ";
+      this.theArray= "something";
+   }
+   //Full load constructor
+   HangMan(String word, int sizeOfWord, String letterGuessed, String theArray)
+   {
+      this.word= word;
+      this.sizeOfWord= sizeOfWord;
+      this.letterGuessed= letterGuessed;
+      this.theArray= theArray;
+   }
+   //Mutator Methods
+   public void setWord()
+   {
+      Scanner keyboard = new Scanner (System.in);
+      System.out.println ("Please enter the secret word");
+      
+      this.word = keyboard.nextLine();
+      System.out.println (this.word);    
+   }
+   
+   public void setSizeOfWord(int sizeOfWord)
+   {
+      this.sizeOfWord= sizeOfWord;
+   }
+   
+   public void setLetterGuessed(String letterGuessed)
+   {
+      for(int i=0;i<letterGuessed.length();i++)
+      {
+         int temp = (int)letterGuessed.charAt(i);
+         
+         try 
+         {
+            if (((temp>= 65) && (temp <= 90)) || ((temp>= 97) && (temp <= 122)))
+            {
+               this.letterGuessed= letterGuessed;
+            }
+            else
+            {
+               throw new InvalidInput();
+            }
+         }
+         catch (InvalidInput e)
+         {
+            System.out.println(e.getMessage());
+         }
+      } 
+   }
+   public void setTheArray(String theArray)
+   {
+      this.theArray= theArray;
+   }
+   
+   //Accessor Methods
+   public String getWord()
+   {
+      return word;
+   }
+   
+   public int getSizeOfWord()
+   {
+      return sizeOfWord;
+   }
+   public String getLetterGuessed()
+   {
+      return letterGuessed;
+   }
+   public String getTheArray()
+   {
+      return theArray;
+   }
+   
+   //Method that sets the size of the word
+   public void sizeOfWord()
+   {
+      this.sizeOfWord = (getWord()).length();
+      System.out.println (this.sizeOfWord);
+   }
+   //Mthod that sets each letter of the word in array1
+   public void setLettersOfWordInArray()
+   { 
+      this.array = new String [getSizeOfWord()]; 
+      
+      for (int i =0; i<this.sizeOfWord; i++)
+      {
+         array[i]=  Character.toString(this.word.charAt(i));
+      }
+      
+      this.array2 = new String [getSizeOfWord()];
+         for (int i=0; i<this.sizeOfWord; i++)
+         {
+            this.array2[i]="X";
+         }
+      
+   }
+   //Method that checks if the word entered by the user is a matches with the secret word 
+   public void guessTheWord()
+   {
+      int count=0;    
+      Scanner keyboard = new Scanner (System.in);
+      int    temp1= getSizeOfWord();
+      int temp2 = temp1;
+      for (int h=0; h<temp2+4; h++)
+      {
+         System.out.println("Please guess a letter");
+         setLetterGuessed(keyboard.nextLine());
+         
+         System.out.println ("");
+      
+         for (int i=0; i<getSizeOfWord(); i++)
+         {
+            if (array[i].equals(getLetterGuessed()))
+            {   
+               this.array2[i]=array[i];
+                  
+            for (int g=0; g<getSizeOfWord(); g++)
+            {
+               System.out.print (this.array2[g] + " ");
+            }
+               
+            System.out.print("\n");     
+            }              
+         }
+               
+         int z=0;
+         if(array[z].equals(array2[z]))
+         {
+            count++;
+            z++;
+         }  
+         if(array2.length==count)
+         {
+            System.out.println(count);
+            System.out.println(" ");
+            System.out.println("You have Won!");
+            System.out.println(" ");   
+         }
+      }
+      System.out.println ("Thanks for playing you have earned a reward");
+      Small person = new Small(); 
+      System.out.println(" ");
+      person.preparingShake();
+      System.out.println(" ");
+   }     
+}
+ 
+
+
+public class HangManTester
+{
+	public static void main (String[] args )
+	{
+		System.out.println ("***HangMan***");
+		System.out.println("");
+	//	Scanner keyboard = new Scanner (System.in);
+		
+		HangMan person1 = new HangMan();
+	
+		person1.setWord(); 
+		
+		person1.sizeOfWord();
+		
+		person1.setLettersOfWordInArray();
+		
+		person1.guessTheWord();
+		
+		
+				
+	}
+}  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+14
+CAT
+DOG
+DINASOUR
+COSMETICS
+MEDICATION
+COMPUTER
+TRAVEL
+YOGA
+MASTER
+DEVELOPER
+PROFESSOR
+DIAGRAM
+NEXT
+CITY
